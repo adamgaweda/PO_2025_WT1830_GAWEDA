@@ -6,7 +6,9 @@ public class Animal{
 
     private MapDirection orientation;
     private Vector2d placement;
-
+    public String placementShow(){
+        return placement.toString();
+    }
 
     public Animal(Vector2d placement){
         this.orientation=MapDirection.NORTH;
