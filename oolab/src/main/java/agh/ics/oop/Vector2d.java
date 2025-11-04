@@ -17,7 +17,7 @@ public class Vector2d {
         return y;
     }
 
-    public String toString(int x, int y) {
+    public String toString() {
         return String.format("(%d,%d)",x,y);
         //return "(" + x + "," + y + ")"
     }
