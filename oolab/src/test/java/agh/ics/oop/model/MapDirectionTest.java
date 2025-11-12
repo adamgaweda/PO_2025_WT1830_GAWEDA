@@ -1,9 +1,7 @@
 package agh.ics.oop.model;
 
-import agh.ics.oop.Vector2d;
 import org.junit.jupiter.api.Test;
 
-import agh.ics.oop.Vector2d;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MapDirectionTest {
