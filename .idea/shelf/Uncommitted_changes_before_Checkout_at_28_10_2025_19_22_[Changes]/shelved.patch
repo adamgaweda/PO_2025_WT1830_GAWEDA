@@ -1,0 +1,22 @@
+Index: oolab/src/main/java/agh/ics/oop/World.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package agh.ics.oop;\r\n\r\nimport agh.ics.oop.model.MoveDirection;\r\n\r\npublic class World {\r\n    public static void main(String args[]) {\r\n        System.out.println(\"System has started\");\r\n        run(OptionsParser.options(args));\r\n        System.out.println(\"System has ended operation\");\r\n    }\r\n    public static void run(MoveDirection[] directions) {\r\n\r\n        for(int i=0;i<directions.length;i++){\r\n            switch (directions[i]) {\r\n                case FORWARD ->  System.out.println(\"Pet's moving forward\");\r\n                case BACKWARD ->  System.out.println(\"Pet's moving backward\");\r\n                case RIGHT -> System.out.println(\"Pet's turning right\");\r\n                case LEFT -> System.out.println(\"Pet's turning left\");\r\n            }\r\n        }\r\n\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/oolab/src/main/java/agh/ics/oop/World.java b/oolab/src/main/java/agh/ics/oop/World.java
+--- a/oolab/src/main/java/agh/ics/oop/World.java	(revision 15dca597e42f5bdccdd3b96f4c0b1fc6a53b0e36)
++++ b/oolab/src/main/java/agh/ics/oop/World.java	(date 1761672374309)
+@@ -4,9 +4,9 @@
+ 
+ public class World {
+     public static void main(String args[]) {
+-        System.out.println("System has started");
++        System.out.println("System has started");k
+         run(OptionsParser.options(args));
+-        System.out.println("System has ended operation");
++        System.out.println("System has ended operation");d
+     }
+     public static void run(MoveDirection[] directions) {
+ 
