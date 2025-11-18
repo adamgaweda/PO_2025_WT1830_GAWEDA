@@ -1,6 +1,4 @@
-package agh.ics.oop;
-
-import java.util.Objects;
+package agh.ics.oop.model;
 
 public class Vector2d {
     final private int x;
