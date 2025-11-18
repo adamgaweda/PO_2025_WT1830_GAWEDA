@@ -4,6 +4,8 @@ import agh.ics.oop.model.util.MapVisualizer;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 
 public class AbstractWorldMap implements WorldMap{
     protected final Vector2d bottomCorner = new Vector2d(0, 0);
@@ -52,4 +54,8 @@ public class AbstractWorldMap implements WorldMap{
         return mapVisualizer.draw(bottomCorner, topCorner);
     }
 
+    @Override
+    public List<WorldElement> getElements(){
+        return new ArrayList<>(List.copyOf(animals.values()));
+    }
 }
