@@ -1,6 +1,7 @@
 package agh.ics.oop.model;
 
 import agh.ics.oop.model.util.MapVisualizer;
+import agh.ics.oop.model.util.IncorrectPositionException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,6 +13,7 @@ public class AbstractWorldMap implements WorldMap{
     protected final Vector2d topCorner;
     protected Map<Vector2d, Animal> animals = new HashMap<>();
     protected final MapVisualizer  mapVisualizer = new MapVisualizer(this);
+    protected List<MapChangeListener> observersList = new ArrayList<>();
 
     public AbstractWorldMap( Vector2d topCorner){
         this.topCorner=topCorner;
@@ -21,12 +23,16 @@ public class AbstractWorldMap implements WorldMap{
     }
 
     @Override
-    public boolean place(Animal animal) {
-        if (canMoveTo(animal.getPlacement())) {
-            animals.put(animal.getPlacement(), animal);
-            return true;
+    public void place(Animal animal) throws IncorrectPositionException {
+        Vector2d position = animal.getPlacement();
+
+
+        if (canMoveTo(position)) {
+            animals.put(position, animal);
         }
-        return false;
+        else {
+            throw new IncorrectPositionException(position);
+        }
     }
     @Override
     public void move(Animal animal, MoveDirection direction){
@@ -49,13 +55,35 @@ public class AbstractWorldMap implements WorldMap{
     public boolean canMoveTo(Vector2d position){
         return position.follows(bottomCorner) && position.precedes(topCorner) && animals.get(position) == null;
     }
-
+    @Override
     public String toString(){
-        return mapVisualizer.draw(bottomCorner, topCorner);
+        Boundary boundary = getCurrentBounds();
+        return mapVisualizer.draw(boundary.lowerLeftCorner(), boundary.upperRightCorner());
     }
 
     @Override
     public List<WorldElement> getElements(){
         return new ArrayList<>(List.copyOf(animals.values()));
     }
+
+
+    public Boundary getCurrentBounds(){
+        return new Boundary(bottomCorner,topCorner);
+    }
+
+    public void registObserver(MapChangeListener obs){
+        observersList.add(obs);
+    }
+
+    public void unregistObserver(MapChangeListener obs){
+        observersList.remove(obs);
+    }
+
+    private void mapChanged(String message){
+        for(MapChangeListener obs : observersList){
+            obs.mapChanged(this,message);
+        }
+    }
+
+
 }

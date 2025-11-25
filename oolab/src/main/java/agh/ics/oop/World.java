@@ -1,21 +1,23 @@
 package agh.ics.oop;
 
-import agh.ics.oop.model.MoveDirection;
-import agh.ics.oop.model.RectangularMap;
-import agh.ics.oop.model.Vector2d;
+import agh.ics.oop.model.*;
 
 import java.util.List;
 
 
 public class World {
     public static void main(String args[]) {
-        System.out.println("System has started");
-        run(OptionsParser.OptionsParser(args));
-        System.out.println("System has ended operation");
-        List<MoveDirection> directions = OptionsParser.OptionsParser(args);
-        List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
-        Simulation simulation = new Simulation(positions, directions, new RectangularMap(5,5));
-        simulation.run();
+        try {
+            AbstractWorldMap mapa = new GrassField(20);
+            List<MoveDirection> directions = OptionsParser.OptionsParser(args);
+            List<Vector2d> positions = List.of(new Vector2d(2, 2), new Vector2d(3, 4));
+            mapa.registObserver(new ConsoleMapDisplay());
+            Simulation simulation = new Simulation(positions, directions, mapa);
+            simulation.run();
+        }
+        catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
     }
     public static void run(List<MoveDirection> directions) {
 

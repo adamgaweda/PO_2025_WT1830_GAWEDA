@@ -1,9 +1,14 @@
+.idea
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
 .kotlin
+
+### Dodatkowe ignorowanie dla oolab ###
+oolab/.idea/
+oolab/gradle/wrapper/
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
