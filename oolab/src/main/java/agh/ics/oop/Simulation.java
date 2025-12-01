@@ -5,7 +5,7 @@ import agh.ics.oop.model.util.IncorrectPositionException;
 
 import java.util.List;
 
-public class Simulation {
+public class Simulation implements Runnable {
 
     private List<MoveDirection> directions;
     private List<Animal>  animals;

@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class AbstractWorldMap implements WorldMap{
     protected final Vector2d bottomCorner = new Vector2d(0, 0);
@@ -14,8 +15,10 @@ public class AbstractWorldMap implements WorldMap{
     protected Map<Vector2d, Animal> animals = new HashMap<>();
     protected final MapVisualizer  mapVisualizer = new MapVisualizer(this);
     protected List<MapChangeListener> observersList = new ArrayList<>();
+    private final UUID mapId;
 
     public AbstractWorldMap( Vector2d topCorner){
+        mapId =  UUID.randomUUID();
         this.topCorner=topCorner;
     }
     public AbstractWorldMap(){
@@ -85,5 +88,8 @@ public class AbstractWorldMap implements WorldMap{
         }
     }
 
+    public UUID getId(){
+        return mapId;
+    }
 
 }
