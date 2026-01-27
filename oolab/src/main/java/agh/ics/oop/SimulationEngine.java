@@ -45,10 +45,12 @@ public class SimulationEngine {
         for(Thread thread : threads ){
             thread.join();
         }
-
-        executor.shutdown();
-        if(!executor.awaitTermination(10, TimeUnit.SECONDS)) {
-            executor.shutdownNow();
+        threads.clear();
+        if(!executor.isShutdown()) {
+            executor.shutdown();
+            if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
+                executor.shutdownNow();
+            }
         }
     }
 
