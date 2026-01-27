@@ -1,5 +1,7 @@
 package agh.ics.oop.model.application;
 
+import agh.ics.oop.model.GrassField;
+import agh.ics.oop.model.WorldMap;
 import agh.ics.oop.presenter.SimulationPresenter;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -21,7 +23,8 @@ public class SimulationApp extends Application {
         // Wczytanie FXML, konwersja FXML -> obiekty w Javie
         BorderPane viewRoot = loader.load();
         SimulationPresenter presenter = loader.getController();
-
+        WorldMap worldMap = new GrassField(100);
+        presenter.setWorldMap(worldMap);
         configureStage(primaryStage,viewRoot);
         primaryStage.show();
 
