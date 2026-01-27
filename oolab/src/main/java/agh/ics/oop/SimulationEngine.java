@@ -13,9 +13,7 @@ public class SimulationEngine {
 
     public SimulationEngine(List<Simulation> simulations){
         this.simulations = simulations;
-        for(Simulation simulation : simulations){
-            threads.add( new Thread(simulation));
-        }
+
     }
 
     public void runSync(){
@@ -26,13 +24,16 @@ public class SimulationEngine {
 
     public void runAsyncInThreadPool(){
 
-        for(Thread thread : threads){
-            executor.submit(thread);
+        for(Simulation simulation : simulations){
+            executor.submit(simulation);
         }
 
     }
     public void runAsync(){
 
+        for(Simulation simulation : simulations){
+            this.threads.add( new Thread(simulation));
+        }
         for(Thread thread : threads){
             thread.start();
         }
@@ -40,6 +41,7 @@ public class SimulationEngine {
     }
 
     public void awaitSimulationsEnd() throws InterruptedException{
+
         for(Thread thread : threads ){
             thread.join();
         }
