@@ -1,21 +1,40 @@
 package agh.ics.oop;
 
-import agh.ics.oop.model.MoveDirection;
-import agh.ics.oop.model.RectangularMap;
-import agh.ics.oop.model.Vector2d;
+import agh.ics.oop.model.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class World {
     public static void main(String args[]) {
-        System.out.println("System has started");
-        run(OptionsParser.OptionsParser(args));
-        System.out.println("System has ended operation");
-        List<MoveDirection> directions = OptionsParser.OptionsParser(args);
-        List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
-        Simulation simulation = new Simulation(positions, directions, new RectangularMap(5,5));
-        simulation.run();
+        try {
+            List<MoveDirection> directions = OptionsParser.OptionsParser(args);
+            List<Simulation> simulations = new ArrayList<>();
+            List<Vector2d> positions = List.of(new Vector2d(2, 2), new Vector2d(3, 4));
+
+            ConsoleMapDisplay display = new ConsoleMapDisplay();
+
+            for(int i = 0; i < 100; i++){
+                AbstractWorldMap mapGrass = new GrassField(20);
+                AbstractWorldMap mapRect = new RectangularMap(20, 20);
+
+                mapGrass.registObserver(display);
+                mapRect.registObserver(display);
+
+                Simulation simulation1 = new Simulation(positions, directions, mapGrass);
+                Simulation simulation2 = new Simulation(positions, directions, mapRect);
+
+                simulations.add(simulation1);
+                simulations.add(simulation2);
+            }
+            SimulationEngine engine = new SimulationEngine(simulations);
+            engine.runAsync();
+            engine.awaitSimulationsEnd();
+        }
+        catch (IllegalArgumentException | InterruptedException e) {
+            System.out.println(e.getMessage());
+        }
     }
     public static void run(List<MoveDirection> directions) {
 
